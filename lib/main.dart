@@ -1,3 +1,6 @@
+import 'package:amazon_flutter_clone/constants/global_variables.dart';
+import 'package:amazon_flutter_clone/routers.dart';
+import 'package:amazon_flutter_clone/screens/auth/auth_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,10 +14,26 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Amazon',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        colorScheme:
+            const ColorScheme.light(primary: GlobalVariables.secondaryColor),
+        scaffoldBackgroundColor: GlobalVariables.backgroundColor,
+        inputDecorationTheme: const InputDecorationTheme(
+          border: OutlineInputBorder()
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            minimumSize: const Size.fromHeight(56),
+            textStyle: const TextStyle(
+              fontWeight: FontWeight.bold,
+            )
+          )
+        ),
+        appBarTheme: const AppBarTheme(
+            elevation: 0, iconTheme: IconThemeData(color: Colors.black)),
+        useMaterial3: false,
       ),
-      home: const Placeholder(),
+      home: const AuthScreen(),
+      onGenerateRoute: (settings) => generateRoute(settings),
     );
   }
 }

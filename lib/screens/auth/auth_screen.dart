@@ -1,5 +1,8 @@
 import 'package:amazon_flutter_clone/constants/constants.dart';
 import 'package:amazon_flutter_clone/constants/global_variables.dart';
+import 'package:amazon_flutter_clone/constants/utils.dart';
+import 'package:amazon_flutter_clone/services/auth_service.dart';
+import 'package:amazon_flutter_clone/widgets/custom_form_field.dart';
 import 'package:flutter/material.dart';
 
 enum Auth { signup, signin }
@@ -20,6 +23,17 @@ class _AuthScreenState extends State<AuthScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _nameController = TextEditingController();
+
+  void _signUp() {
+    AuthService.signUp(
+        email: _emailController.text.trim(),
+        name: _nameController.text.trim(),
+        password: _passwordController.text.trim()).then((value){
+          showSnackBar(context, 'Account Created', backgroundColor: Colors.green.shade400);
+        }).catchError((error){
+          showSnackBar(context, error.message, backgroundColor: Colors.red.shade400);
+        });
+  }
 
   @override
   void dispose() {
@@ -68,24 +82,18 @@ class _AuthScreenState extends State<AuthScreen> {
                     key: signUpFormKey,
                     child: Column(
                       children: [
-                        TextFormField(
-                          controller: _nameController,
-                          decoration: const InputDecoration(hintText: 'Name'),
-                        ),
+                        CustomFormField(controller: _nameController, label: 'Name'),
                         space8,
-                        TextFormField(
-                          controller: _emailController,
-                          decoration: const InputDecoration(hintText: 'Email'),
-                        ),
+                        CustomFormField(controller: _emailController, label: 'Email'),
                         space8,
-                        TextFormField(
-                          controller: _passwordController,
-                          decoration:
-                              const InputDecoration(hintText: 'Password'),
-                        ),
+                        CustomFormField(controller: _passwordController, label: 'Password'),
                         space8,
                         ElevatedButton(
-                            onPressed: () {}, child: const Text('Sign Up'))
+                            onPressed: () {
+                              if(signUpFormKey.currentState!.validate()){
+                                _signUp();
+                              }
+                            }, child: const Text('Sign Up'))
                       ],
                     )),
               ),

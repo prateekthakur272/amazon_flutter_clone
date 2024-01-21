@@ -14,7 +14,6 @@ class AuthService {
     final response = await http.post(Uri.parse('$uri/api/signup'),
         body: user.toJson(), headers: {'content-type': 'application/json'});
     if (response.statusCode == 201) {
-      print(response.body);
       return user;
     }else if(response.statusCode == 500){
       throw const HttpException('Server Error');

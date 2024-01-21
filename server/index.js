@@ -11,8 +11,8 @@ const authRouters = require('./routes/auth')
 const app = express()
 const PORT = 3000
 
+app.use(express.json())
 app.use(authRouters)
-
 app.use((req, res) => {
     console.log(`[REQUEST] ${req.url} ${res.statusCode} ${res.statusMessage}`);
 })

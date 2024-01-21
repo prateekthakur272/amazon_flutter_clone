@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const bcrypt = require('bcryptjs')
 
 const userSchema = mongoose.Schema(
     {
@@ -42,4 +43,13 @@ const userSchema = mongoose.Schema(
 );
 
 const User = mongoose.model('User', userSchema);
-module.exports = User;
+
+const hashPassword = async (password) => {
+    return await bcrypt.hash(password, 8)
+}
+
+const verifyPassword = async (plainPassword, hashedPassword) => {
+    bcrypt.compare(plainPassword, hashedPassword)
+}
+
+module.exports = {User, hashPassword, verifyPassword};

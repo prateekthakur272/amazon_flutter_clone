@@ -50,7 +50,7 @@ class _AuthScreenState extends State<AuthScreen> {
         .then((value) {
       Provider.of<UserProvider>(context, listen: false).user = value;
       preferences.setString('x-auth-token', value.token);
-      Navigator.of(context).pushNamed(HomeScreen.routeName);
+      Navigator.of(context).pushNamedAndRemoveUntil(HomeScreen.routeName, (route) => false);
       showSnackBar(context, value.token,
           backgroundColor: Colors.green.shade400);
     }).catchError((error) {

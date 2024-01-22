@@ -3,6 +3,7 @@ const {User, hashPassword, verifyPassword} = require('../models/user')
 const ValidationError = require('mongoose/lib/error/validation');
 const jwt = require('jsonwebtoken');
 const { passwordKey } = require('../config');
+const { authorise } = require('../middlewares/auth');
 
 const router = express.Router();
 
@@ -51,6 +52,24 @@ router.post('/api/signin', async (req, res)=>{
         console.error(e);
         res.status(500).json({error: 'Internal server error'});
     }
+})
+
+router.get('/api/token', async (req, res)=>{
+    const token = req.header('x-auth-token')
+    if (token){
+        const payload = jwt.verify(token, passwordKey);
+        if(payload){
+            const user = await User.findOne({_id: payload.id})
+            return res.json(user)
+        }
+        return res.status(401).json({message: 'Invalid token'})
+    }
+    return res.status(400).json({message: '[x-auth-token] header required'})
+})
+
+router.get('/user/me', authorise, async (req, res)=>{
+    const user = await User.findById(req.user)
+    return res.json({token: req.token, ...user._doc})
 })
 
 module.exports = router

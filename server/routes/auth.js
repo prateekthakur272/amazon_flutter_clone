@@ -1,12 +1,17 @@
 const express = require('express')
-const {User, hashPassword} = require('../models/user')
+const {User, hashPassword, verifyPassword} = require('../models/user')
 const ValidationError = require('mongoose/lib/error/validation');
+const jwt = require('jsonwebtoken');
+const { passwordKey } = require('../config');
 
 const router = express.Router();
 
 router.post('/api/signup', async (req,res)=>{
     try{
         let {name, email, password} = req.body;
+        if (!email || !name || !password) {
+            return res.status(404).json({message: 'required [name, email, password]'});
+        }
         const user = await User.findOne({email})
         if (user){
             return res.status(400).json({error: `User with email ${email} already exists.`})
@@ -21,6 +26,30 @@ router.post('/api/signup', async (req,res)=>{
         }
         console.error(e);
         return res.status(500).json({error: e.message})
+    }
+})
+
+router.post('/api/signin', async (req, res)=>{
+    try{
+        const {email, password} = req.body;
+        if (!email || !password) {
+            return res.status(404).json({message: 'required [email, password]'});
+        }
+        const user = await User.findOne({email})
+        if (user){
+            if (await verifyPassword(password, user.password)){
+                token = jwt.sign({
+                    id:user._id,
+                    email
+                }, passwordKey)
+                return res.json({token, ...user._doc})
+            }
+            return res.status(401).json({message: 'Invalid password'})
+        }
+        return res.status(404).json({message: 'User not found'});
+    }catch(e){
+        console.error(e);
+        res.status(500).json({error: 'Internal server error'});
     }
 })
 

@@ -49,7 +49,7 @@ const hashPassword = async (password) => {
 }
 
 const verifyPassword = async (plainPassword, hashedPassword) => {
-    bcrypt.compare(plainPassword, hashedPassword)
+    return await bcrypt.compare(plainPassword, hashedPassword)
 }
 
 module.exports = {User, hashPassword, verifyPassword};

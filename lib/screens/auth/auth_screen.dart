@@ -1,9 +1,12 @@
 import 'package:amazon_flutter_clone/constants/constants.dart';
 import 'package:amazon_flutter_clone/constants/global_variables.dart';
 import 'package:amazon_flutter_clone/constants/utils.dart';
+import 'package:amazon_flutter_clone/providers/user_provider.dart';
 import 'package:amazon_flutter_clone/services/auth_service.dart';
 import 'package:amazon_flutter_clone/widgets/custom_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 enum Auth { signup, signin }
 
@@ -26,23 +29,32 @@ class _AuthScreenState extends State<AuthScreen> {
 
   void _signUp() {
     AuthService.signUp(
-        email: _emailController.text.trim(),
-        name: _nameController.text.trim(),
-        password: _passwordController.text.trim()).then((value){
-          showSnackBar(context, 'Account Created', backgroundColor: Colors.green.shade400);
-        }).catchError((error){
-          showSnackBar(context, error.message, backgroundColor: Colors.red.shade400);
-        });
+            email: _emailController.text.trim(),
+            name: _nameController.text.trim(),
+            password: _passwordController.text.trim())
+        .then((value) {
+      showSnackBar(context, 'Account Created',
+          backgroundColor: Colors.green.shade400);
+    }).catchError((error) {
+      showSnackBar(context, error.message,
+          backgroundColor: Colors.red.shade400);
+    });
   }
 
-  void _signIn(){
+  Future<void> _signIn() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
     AuthService.signIn(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim()).then((value){
-          showSnackBar(context, value.token, backgroundColor: Colors.green.shade400);
-        }).catchError((error){
-          showSnackBar(context, error.message, backgroundColor: Colors.red.shade400);
-        });
+            email: _emailController.text.trim(),
+            password: _passwordController.text.trim())
+        .then((value) {
+      Provider.of<UserProvider>(context, listen: false).user = value;
+      preferences.setString('x-auth-token', value.token);
+      showSnackBar(context, value.token,
+          backgroundColor: Colors.green.shade400);
+    }).catchError((error) {
+      showSnackBar(context, error.message,
+          backgroundColor: Colors.red.shade400);
+    });
   }
 
   @override
@@ -92,18 +104,22 @@ class _AuthScreenState extends State<AuthScreen> {
                     key: signUpFormKey,
                     child: Column(
                       children: [
-                        CustomFormField(controller: _nameController, label: 'Name'),
+                        CustomFormField(
+                            controller: _nameController, label: 'Name'),
                         space8,
-                        CustomFormField(controller: _emailController, label: 'Email'),
+                        CustomFormField(
+                            controller: _emailController, label: 'Email'),
                         space8,
-                        CustomFormField(controller: _passwordController, label: 'Password'),
+                        CustomFormField(
+                            controller: _passwordController, label: 'Password'),
                         space8,
                         ElevatedButton(
                             onPressed: () {
-                              if(signUpFormKey.currentState!.validate()){
+                              if (signUpFormKey.currentState!.validate()) {
                                 _signUp();
                               }
-                            }, child: const Text('Sign Up'))
+                            },
+                            child: const Text('Sign Up'))
                       ],
                     )),
               ),
@@ -145,7 +161,8 @@ class _AuthScreenState extends State<AuthScreen> {
                         ElevatedButton(
                             onPressed: () {
                               _signIn();
-                            }, child: const Text('Sign In'))
+                            },
+                            child: const Text('Sign In'))
                       ],
                     )),
               ),

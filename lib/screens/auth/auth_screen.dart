@@ -2,6 +2,7 @@ import 'package:amazon_flutter_clone/constants/constants.dart';
 import 'package:amazon_flutter_clone/constants/global_variables.dart';
 import 'package:amazon_flutter_clone/constants/utils.dart';
 import 'package:amazon_flutter_clone/providers/user_provider.dart';
+import 'package:amazon_flutter_clone/screens/home_screen.dart';
 import 'package:amazon_flutter_clone/services/auth_service.dart';
 import 'package:amazon_flutter_clone/widgets/custom_form_field.dart';
 import 'package:flutter/material.dart';
@@ -49,10 +50,11 @@ class _AuthScreenState extends State<AuthScreen> {
         .then((value) {
       Provider.of<UserProvider>(context, listen: false).user = value;
       preferences.setString('x-auth-token', value.token);
+      Navigator.of(context).pushNamed(HomeScreen.routeName);
       showSnackBar(context, value.token,
           backgroundColor: Colors.green.shade400);
     }).catchError((error) {
-      showSnackBar(context, error.message,
+      showSnackBar(context, error.toString(),
           backgroundColor: Colors.red.shade400);
     });
   }

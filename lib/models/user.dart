@@ -21,6 +21,14 @@ class User {
     return User(name: name, email: email, password: password, address: '', id: '', type: 'user', token: '');
   }
 
+  factory User.signUpUser(String name, String email,  String password){
+    return User(name: name, email: email, password: password, address: '', id: '', type: 'user', token: '');
+  }
+
+  factory User.signInUser(String email,  String password){
+    return User(name: '', email: email, password: password, address: '', id: '', type: 'user', token: '');
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,

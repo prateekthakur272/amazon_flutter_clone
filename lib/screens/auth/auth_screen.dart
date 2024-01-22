@@ -35,6 +35,16 @@ class _AuthScreenState extends State<AuthScreen> {
         });
   }
 
+  void _signIn(){
+    AuthService.signIn(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim()).then((value){
+          showSnackBar(context, value.token, backgroundColor: Colors.green.shade400);
+        }).catchError((error){
+          showSnackBar(context, error.message, backgroundColor: Colors.red.shade400);
+        });
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -133,7 +143,9 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                         space8,
                         ElevatedButton(
-                            onPressed: () {}, child: const Text('Sign In'))
+                            onPressed: () {
+                              _signIn();
+                            }, child: const Text('Sign In'))
                       ],
                     )),
               ),

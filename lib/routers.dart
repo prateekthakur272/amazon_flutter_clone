@@ -1,7 +1,7 @@
 import 'package:amazon_flutter_clone/screens/auth/auth_screen.dart';
 import 'package:amazon_flutter_clone/screens/errors/page_not_found.dart';
 import 'package:amazon_flutter_clone/screens/home_screen.dart';
-import 'package:amazon_flutter_clone/widgets/bottom_bar.dart';
+import 'package:amazon_flutter_clone/widgets/navigator_screen.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -12,9 +12,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case HomeScreen.routeName:
       return MaterialPageRoute(
           settings: settings, builder: (_) => const HomeScreen());
-    case BottomBar.routeName:
+    case NavigatorScreen.routeName:
       return MaterialPageRoute(
-          settings: settings, builder: (_) => const BottomBar());
+          settings: settings, builder: (_) => const NavigatorScreen());
     default:
       return MaterialPageRoute(builder: (_) => const PageNotFound());
   }

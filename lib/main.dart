@@ -3,7 +3,7 @@ import 'package:amazon_flutter_clone/providers/user_provider.dart';
 import 'package:amazon_flutter_clone/routers.dart';
 import 'package:amazon_flutter_clone/screens/auth/auth_screen.dart';
 import 'package:amazon_flutter_clone/services/auth_service.dart';
-import 'package:amazon_flutter_clone/widgets/bottom_bar.dart';
+import 'package:amazon_flutter_clone/widgets/navigator_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -56,7 +56,7 @@ class _AppState extends State<App> {
             elevation: 0, iconTheme: IconThemeData(color: Colors.black)),
         useMaterial3: false,
       ),
-      home: Provider.of<UserProvider>(context).user.token.isNotEmpty?const BottomBar():const AuthScreen(),
+      home: Provider.of<UserProvider>(context).user.token.isNotEmpty?const NavigatorScreen():const AuthScreen(),
       onGenerateRoute: (settings) => generateRoute(settings),
     );
   }

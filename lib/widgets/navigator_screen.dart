@@ -4,15 +4,15 @@ import 'package:amazon_flutter_clone/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 
-class BottomBar extends StatefulWidget {
+class NavigatorScreen extends StatefulWidget {
   static const routeName = '/bottom-bar';
-  const BottomBar({super.key});
+  const NavigatorScreen({super.key});
 
   @override
-  State<BottomBar> createState() => _BottomBarState();
+  State<NavigatorScreen> createState() => _NavigatorScreenState();
 }
 
-class _BottomBarState extends State<BottomBar> {
+class _NavigatorScreenState extends State<NavigatorScreen> {
   int _pageIndex = 0;
   final double _bottomBarWidth = 42;
   final double _bottomBarBorderWidth = 5;

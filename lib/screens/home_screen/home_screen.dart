@@ -1,5 +1,7 @@
 import 'package:amazon_flutter_clone/constants/global_variables.dart';
 import 'package:amazon_flutter_clone/screens/home_screen/widgets/address_box.dart';
+import 'package:amazon_flutter_clone/screens/home_screen/widgets/carousel.dart';
+import 'package:amazon_flutter_clone/screens/home_screen/widgets/deal_of_day.dart';
 import 'package:amazon_flutter_clone/screens/home_screen/widgets/top_categories.dart';
 import 'package:flutter/material.dart';
 
@@ -59,10 +61,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           )),
-      body: const Column(
-        children: [
+      body: ListView(
+        children: const [
           AddressBox(),
-          TopCategories()
+          TopCategories(),
+          HomeCarousel(),
+          DealOfDay()
         ],
       ),
     );

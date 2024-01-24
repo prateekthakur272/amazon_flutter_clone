@@ -1,6 +1,7 @@
 import 'package:amazon_flutter_clone/constants/global_variables.dart';
 import 'package:amazon_flutter_clone/providers/user_provider.dart';
 import 'package:amazon_flutter_clone/routers.dart';
+import 'package:amazon_flutter_clone/screens/admin_screen/admin_screen.dart';
 import 'package:amazon_flutter_clone/screens/auth/auth_screen.dart';
 import 'package:amazon_flutter_clone/services/auth_service.dart';
 import 'package:amazon_flutter_clone/widgets/navigator_screen.dart';
@@ -31,13 +32,14 @@ class _AppState extends State<App> {
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _initUser();
   }
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context).user;
     return MaterialApp(
       title: 'Amazon',
       theme: ThemeData(
@@ -56,7 +58,11 @@ class _AppState extends State<App> {
             elevation: 0, iconTheme: IconThemeData(color: Colors.black)),
         useMaterial3: false,
       ),
-      home: Provider.of<UserProvider>(context).user.token.isNotEmpty?const NavigatorScreen():const AuthScreen(),
+      home: user.token.isNotEmpty
+          ? user.type == 'user'
+              ? const NavigatorScreen()
+              : const AdminScreen()
+          : const AuthScreen(),
       onGenerateRoute: (settings) => generateRoute(settings),
     );
   }

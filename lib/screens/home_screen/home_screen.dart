@@ -1,7 +1,7 @@
 import 'package:amazon_flutter_clone/constants/global_variables.dart';
-import 'package:amazon_flutter_clone/providers/user_provider.dart';
+import 'package:amazon_flutter_clone/screens/home_screen/widgets/address_box.dart';
+import 'package:amazon_flutter_clone/screens/home_screen/widgets/top_categories.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = '/home';
@@ -14,48 +14,56 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context).user;
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(50),
+          preferredSize: const Size.fromHeight(64),
           child: AppBar(
             flexibleSpace: Container(
-              decoration: const BoxDecoration(
-                gradient: GlobalVariables.appBarGradient
-              ),
+              decoration:
+                  const BoxDecoration(gradient: GlobalVariables.appBarGradient),
             ),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded (
+                Expanded(
                   child: Container(
-                    height: 48,
                     alignment: Alignment.topLeft,
                     margin: const EdgeInsets.symmetric(horizontal: 16),
                     child: Material(
                       elevation: 1,
-                      borderRadius: BorderRadius.circular(4),
-                      
+                      clipBehavior: Clip.hardEdge,
+                      borderRadius: BorderRadius.circular(8),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.all(0),
+                            hintText: 'Search Amazon.in',
+                            prefixIcon: const InkWell(
+                              child: Icon(Icons.search),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(color: Colors.black38),
+                                borderRadius: BorderRadius.circular(8)),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(8))),
+                      ),
                     ),
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Row(
-                    children: [
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.notifications_outlined)),
-                      IconButton(
-                          onPressed: () {}, icon: const Icon(Icons.search)),
-                    ],
-                  ),
-                )
+                IconButton(
+                  icon: const Icon(Icons.mic),
+                  onPressed: () {},
+                  iconSize: 28,
+                ),
               ],
             ),
           )),
-      body: Center(
-        child: Text(user.toJson()),
+      body: const Column(
+        children: [
+          AddressBox(),
+          TopCategories()
+        ],
       ),
     );
   }

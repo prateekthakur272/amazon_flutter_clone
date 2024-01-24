@@ -1,5 +1,5 @@
 import 'package:amazon_flutter_clone/constants/constants.dart';
-import 'package:amazon_flutter_clone/widgets/account/action_button.dart';
+import 'package:amazon_flutter_clone/screens/account/widgets/action_button.dart';
 import 'package:flutter/material.dart';
 
 class ActionButtons extends StatelessWidget {

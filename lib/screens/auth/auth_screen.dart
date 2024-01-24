@@ -2,7 +2,7 @@ import 'package:amazon_flutter_clone/constants/constants.dart';
 import 'package:amazon_flutter_clone/constants/global_variables.dart';
 import 'package:amazon_flutter_clone/constants/utils.dart';
 import 'package:amazon_flutter_clone/providers/user_provider.dart';
-import 'package:amazon_flutter_clone/screens/home_screen.dart';
+import 'package:amazon_flutter_clone/screens/home_screen/home_screen.dart';
 import 'package:amazon_flutter_clone/services/auth_service.dart';
 import 'package:amazon_flutter_clone/widgets/custom_form_field.dart';
 import 'package:flutter/material.dart';

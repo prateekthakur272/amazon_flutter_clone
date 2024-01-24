@@ -1,6 +1,6 @@
 import 'package:amazon_flutter_clone/screens/auth/auth_screen.dart';
 import 'package:amazon_flutter_clone/screens/errors/page_not_found.dart';
-import 'package:amazon_flutter_clone/screens/home_screen.dart';
+import 'package:amazon_flutter_clone/screens/home_screen/home_screen.dart';
 import 'package:amazon_flutter_clone/widgets/navigator_screen.dart';
 import 'package:flutter/material.dart';
 

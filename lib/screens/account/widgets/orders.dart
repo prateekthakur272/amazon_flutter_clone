@@ -1,6 +1,6 @@
 import 'package:amazon_flutter_clone/constants/constants.dart';
 import 'package:amazon_flutter_clone/constants/global_variables.dart';
-import 'package:amazon_flutter_clone/widgets/account/order_view.dart';
+import 'package:amazon_flutter_clone/screens/account/widgets/order_view.dart';
 import 'package:flutter/material.dart';
 
 class Orders extends StatefulWidget {

@@ -1,8 +1,8 @@
 import 'package:amazon_flutter_clone/constants/constants.dart';
 import 'package:amazon_flutter_clone/constants/global_variables.dart';
-import 'package:amazon_flutter_clone/widgets/account/action_buttons.dart';
-import 'package:amazon_flutter_clone/widgets/account/navigator_screen.dart';
-import 'package:amazon_flutter_clone/widgets/account/orders.dart';
+import 'package:amazon_flutter_clone/screens/account/widgets/action_buttons.dart';
+import 'package:amazon_flutter_clone/screens/account/widgets/navigator_screen.dart';
+import 'package:amazon_flutter_clone/screens/account/widgets/orders.dart';
 import 'package:flutter/material.dart';
 
 class AccountScreen extends StatelessWidget {

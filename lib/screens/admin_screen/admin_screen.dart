@@ -1,4 +1,5 @@
 import 'package:amazon_flutter_clone/constants/global_variables.dart';
+import 'package:amazon_flutter_clone/screens/admin_screen/posts_screen.dart';
 import 'package:flutter/material.dart';
 
 class AdminScreen extends StatefulWidget {
@@ -35,6 +36,7 @@ class _AdminScreenState extends State<AdminScreen> {
             ),
           ),
         ),
+      body: const PostsScreen(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _pageIndex,
         selectedItemColor: GlobalVariables.selectedNavBarColor,

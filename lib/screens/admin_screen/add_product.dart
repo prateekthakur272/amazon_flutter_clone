@@ -1,5 +1,7 @@
 import 'package:amazon_flutter_clone/constants/constants.dart';
 import 'package:amazon_flutter_clone/constants/global_variables.dart';
+import 'package:amazon_flutter_clone/models/product.dart';
+import 'package:amazon_flutter_clone/widgets/custom_form_field.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +14,23 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
+
+  final TextEditingController _productName = TextEditingController();
+  final TextEditingController _productDescription = TextEditingController();
+  final TextEditingController _productPrice = TextEditingController();
+  final TextEditingController _productQuantity = TextEditingController();
+
+  String productCategory = productCategories.first;
+
+  @override
+  void dispose() {
+    _productName.dispose();
+    _productDescription.dispose();
+    _productPrice.dispose();
+    _productQuantity.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +72,32 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     ],
                   ),
             ),
-            )
+            ),
+            space24,
+            CustomFormField(controller: _productName, label: 'Product Name'),
+            space8,
+            CustomFormField(controller: _productDescription, label: 'Description', maxLines: 7,),
+            space8,
+            CustomFormField(controller: _productPrice, label: 'Price'),
+            space8,
+            CustomFormField(controller: _productQuantity, label: 'Quantity'),
+            space8,
+            SizedBox(
+              width: double.infinity,
+              child: DropdownButton(
+                value: productCategory,
+                icon: const Icon(Icons.keyboard_arrow_down),
+                items: productCategories.map((item) => DropdownMenuItem(value: item,child: Text(item),)).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    productCategory = value!;
+                  });
+                },
+              ),
+            ),
+            space8,
+            space8,
+            ElevatedButton(onPressed: (){}, child: const Text('Add'))
           ],
         )),
       ),

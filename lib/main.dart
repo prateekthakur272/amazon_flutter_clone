@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:amazon_flutter_clone/constants/global_variables.dart';
 import 'package:amazon_flutter_clone/providers/user_provider.dart';
 import 'package:amazon_flutter_clone/routers.dart';
@@ -28,6 +30,8 @@ class _AppState extends State<App> {
     final token = preferences.getString('x-auth-token') ?? '';
     AuthService.getUser(token).then((user) {
       Provider.of<UserProvider>(context, listen: false).user = user;
+    }).catchError((e){
+      log(e.message);
     });
   }
 

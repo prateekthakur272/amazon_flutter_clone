@@ -6,16 +6,15 @@ const {databaseUrl} = require('./config')
 const mongoose = require('mongoose')
 
 // routers
-const authRouters = require('./routes/auth')
+const authRoutes = require('./routes/auth')
+const adminRoutes = require('./routes/admin')
 
 const app = express()
 const PORT = 3000
 
 app.use(express.json())
-app.use(authRouters)
-app.use((req, res) => {
-    console.log(`[REQUEST] ${req.url} ${res.statusCode} ${res.statusMessage}`);
-})
+app.use(authRoutes)
+app.use(adminRoutes)
 
 mongoose.connect(databaseUrl).then(
     () => {

@@ -32,12 +32,12 @@ class Product {
     return Product(
         id: map['_id'],
         rating: map['rating'],
-        name: map['name'],
-        description: map['description'],
-        quantity: map['quantity'],
-        price: map['price'],
-        category: map['category'],
-        images: map['images']);
+        name: map['name']??'',
+        description: map['description']??'',
+        quantity: map['quantity']?.toDouble()??0.0,
+        price: map['price']?.toDouble()??0.0,
+        category: map['category']??'',
+        images: List<String>.from(map['images']));
   }
 
   Map<String, dynamic> toMap() {

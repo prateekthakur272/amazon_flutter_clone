@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:amazon_flutter_clone/constants/global_variables.dart';
@@ -42,6 +43,26 @@ class AdminService {
       throw const HttpException('Internal server error');
     }else{
       throw HttpException(response.body);
+    }
+  }
+
+  static Future<List<Product>> getAllProducts(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final headers = {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'x-auth-token':userProvider.user.token,
+    };
+    final response = await http.get(Uri.parse('$uri/admin/products'), headers: headers);
+    if(response.statusCode==200){
+      final List data = jsonDecode(response.body);
+      final products = data.map((product) => Product.fromMap(product)).toList();
+      return products;
+    }else if(response.statusCode==401){
+      throw const HttpException('unauthorised');
+    }else if(response.statusCode==500){
+      throw const HttpException('internal server error');
+    }else{
+      throw const HttpException('');
     }
   }
 }

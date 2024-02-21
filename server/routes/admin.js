@@ -15,4 +15,13 @@ router.post('/admin/add-product', admin, async (req, res) => {
     }
 })
 
+router.get('/admin/products', async (req, res)=>{
+    try{
+        let products = await Product.find({})
+        return res.json(products)
+    }catch(e){
+        return res.status(500).json({error : e.message})
+    }
+})
+
 module.exports = router;

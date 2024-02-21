@@ -12,6 +12,11 @@ showSnackBar(BuildContext context, String message,
 }
 
 
+showLoader(BuildContext context){
+  showDialog(context: context, barrierDismissible: false, builder: (context)=>const Center(child: CircularProgressIndicator()));
+}
+
+
 Future<List<File>> pickImages() async {
   final List<File> images = [];
   try {

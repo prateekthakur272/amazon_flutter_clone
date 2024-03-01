@@ -24,4 +24,18 @@ router.get('/admin/products', async (req, res)=>{
     }
 })
 
+router.delete('/admin/products/:id', async (req, res)=>{
+    let id = req.params.id;
+    try{
+        let product = await Product.findByIdAndDelete(id);
+        if(product){
+            product.save()
+            return res.status(204)
+        }
+        return res.status(404).json({'detail':'product not found'})
+    }catch(e){
+        return res.status(500).json({error : e.message})
+    }
+})
+
 module.exports = router;

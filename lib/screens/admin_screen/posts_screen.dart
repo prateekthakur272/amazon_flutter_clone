@@ -35,7 +35,9 @@ class _PostsScreenState extends State<PostsScreen> {
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2),
                   itemBuilder: (context, index) =>
-                      ProductView(product: products![index])),
+                      ProductView(product: products![index], onDelete: (){
+                        setState(() {});
+                      },)),
             ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,

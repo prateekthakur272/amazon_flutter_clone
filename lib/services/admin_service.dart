@@ -65,4 +65,22 @@ class AdminService {
       throw const HttpException('');
     }
   }
+
+  static Future<void> deleteProduct(BuildContext context,Product product) async {
+    final user = Provider.of<UserProvider>(context, listen: false).user;
+    final headers = {
+      'Content-Type':'application/json; charset=UTF-8',
+      'x-auth-token':user.token
+    };
+    final response = await http.delete(Uri.parse('$uri/admin/products/${product.id??''}'), headers: headers);
+    if(response.statusCode==204){
+      return;
+    }else if(response.statusCode==401){
+      throw const HttpException('unauthorised');
+    }else if(response.statusCode==500){
+      throw const HttpException('internal server error');
+    }else{
+      throw const HttpException('');
+    }
+  }
 }
